@@ -1,3 +1,5 @@
+import getCars from '../api/getCars';
+
 export const FETCH_CARS_BEGIN = 'FETCH_CARS_BEGIN';
 export const FETCH_CARS_SUCCESS = 'FETCH_CARS_SUCCESS';
 export const FETCH_CARS_ERROR = 'FETCH_CARS_ERROR';
@@ -16,9 +18,9 @@ const fetchCarsError = error => ({
   payload: { error },
 });
 
-const fetchCars = (category, page) => dispatch => {
+const fetchCars = () => dispatch => {
   dispatch(fetchCarsBegin());
-  return getCars(category, page)
+  return getCars()
     .then(async res => {
       await dispatch(fetchCarsSuccess(res.data));
       return res.data;

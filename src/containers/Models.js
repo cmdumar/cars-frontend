@@ -1,6 +1,8 @@
+import { connect } from 'react-redux';
 import styled from 'styled-components';
+import PropTypes, { string } from 'prop-types';
 
-function Models() {
+function Models({ cars, loading, errors }) {
   return (
     <Container>
       <Header>
@@ -8,6 +10,10 @@ function Models() {
         <p>Please select a Tesla Model</p>
         <DottedLine />
       </Header>
+      {loading && <div>Loading</div>}
+      <div>
+        {cars.map(i => <h3 key={i.model}>{i.model}</h3>)}
+      </div>
     </Container>
   );
 }
@@ -41,4 +47,22 @@ const DottedLine = styled.div`
   border-bottom: 3px dotted #ccc;
 `;
 
-export default Models;
+Models.propTypes = {
+  cars: PropTypes.instanceOf(Object),
+  loading: PropTypes.bool,
+  errors: PropTypes.string,
+};
+
+Models.defaultProps = {
+  cars: {},
+  loading: false,
+  errors: '',
+};
+
+const mapStateToProps = ({ loading, errors, cars: { cars } }) => ({
+  cars,
+  loading,
+  errors,
+});
+
+export default connect(mapStateToProps, null)(Models);

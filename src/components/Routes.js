@@ -1,6 +1,6 @@
 import { Switch, Route } from 'react-router-dom';
 import Home from './Home';
-import Models from './Models';
+import Models from '../containers/Models';
 
 function Routes() {
   return (

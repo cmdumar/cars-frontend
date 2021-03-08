@@ -1,8 +1,17 @@
+import { useEffect } from 'react';
+import { connect, useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import fetchCars from '../actions/carsActions';
 import Navbar from './Navbar';
 import Routes from './Routes';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCars());
+  });
+
   return (
     <Container>
       <header>
@@ -26,4 +35,4 @@ const Main = styled.main`
   position: relative;
 `;
 
-export default App;
+export default connect()(App);
