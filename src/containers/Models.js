@@ -1,27 +1,67 @@
-import { connect } from 'react-redux';
+/* eslint-disable no-unused-vars */
+import { useEffect } from 'react';
+import { connect, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes, { string } from 'prop-types';
+import Carousel from 'react-elastic-carousel';
+import fetchCars from '../actions/carsActions';
 
-function Models({ cars, loading, errors }) {
+function Models({
+  cars, loading, error, fetchCars,
+}) {
+  useEffect(() => {
+    fetchCars();
+  }, []);
+
   return (
     <Container>
-      <Header>
-        <Title>LATEST MODELS</Title>
-        <p>Please select a Tesla Model</p>
-        <DottedLine />
-      </Header>
-      {loading && <div>Loading</div>}
-      <div>
-        {cars.map(i => <h3 key={i.model}>{i.model}</h3>)}
-      </div>
+      <Content>
+        <Header>
+          <Title>LATEST MODELS</Title>
+          <p>Please select a Tesla Model</p>
+          <DottedLine />
+        </Header>
+        {loading ? <div>Loading</div>
+          : (
+            <StyledCarousel itemsToShow={3}>
+              {cars.map(i => (
+                <Car key={i.model}>
+                  <ImgContainer>
+                    <img src={i.picture[0].img} alt="Car" />
+                  </ImgContainer>
+                  <TextContainer>
+                    <h2>{i.model}</h2>
+                  </TextContainer>
+                </Car>
+              ))}
+            </StyledCarousel>
+          )}
+      </Content>
     </Container>
   );
 }
+
+const Car = styled.div``;
+
+const ImgContainer = styled.div`
+  img {
+    width: 500px;
+  }
+`;
+
+const TextContainer = styled.div`
+  text-align: center;
+`;
 
 const Container = styled.section`
   display: grid;
   place-items: center;
   height: 100%;
+  width: 100%;
+`;
+
+const Content = styled.div`
+  width: 100%;
 `;
 
 const Header = styled.section`
@@ -30,6 +70,21 @@ const Header = styled.section`
     color: rgb(183 183 183);
     font-size: 15px;
     font-weight: bold;
+  }
+`;
+
+const StyledCarousel = styled(Carousel)`
+  width: 100%;
+  padding: 10px;
+  .rec-arrow {
+    background-color: rgba(0,0,0,.5);
+    color: white;
+    &:hover {
+      background-color: rgba(0,0,0,.8);
+    }
+  }
+  .rec-pagination {
+    display: none;
   }
 `;
 
@@ -48,21 +103,16 @@ const DottedLine = styled.div`
 `;
 
 Models.propTypes = {
-  cars: PropTypes.instanceOf(Object),
-  loading: PropTypes.bool,
-  errors: PropTypes.string,
+  cars: PropTypes.instanceOf(Object).isRequired,
+  loading: PropTypes.bool.isRequired,
+  error: PropTypes.string.isRequired,
+  fetchCars: PropTypes.func.isRequired,
 };
 
-Models.defaultProps = {
-  cars: {},
-  loading: false,
-  errors: '',
-};
-
-const mapStateToProps = ({ loading, errors, cars: { cars } }) => ({
-  cars,
-  loading,
-  errors,
+const mapStateToProps = ({ cars }) => ({
+  cars: cars.cars,
+  loading: cars.loading,
+  error: cars.error,
 });
 
-export default connect(mapStateToProps, null)(Models);
+export default connect(mapStateToProps, { fetchCars })(Models);

@@ -1,9 +1,9 @@
 import { FETCH_CARS_BEGIN, FETCH_CARS_SUCCESS, FETCH_CARS_ERROR } from '../actions/carsActions';
 
 const initialState = {
-  cars: {},
+  cars: [],
   loading: false,
-  error: null,
+  error: '',
 };
 
 const carsReducer = (state = initialState, action) => {
@@ -12,7 +12,7 @@ const carsReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
-        error: null,
+        error: '',
       };
     case FETCH_CARS_SUCCESS:
       return {
@@ -25,7 +25,7 @@ const carsReducer = (state = initialState, action) => {
         ...state,
         error: action.payload.error,
         loading: false,
-        cars: {},
+        cars: [],
       };
     default:
       return state;
