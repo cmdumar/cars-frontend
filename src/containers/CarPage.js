@@ -11,10 +11,14 @@ function CarPage({
   car, loading, error, fetchCar,
 }) {
   const [data, setData] = useState({ city: '', date: new Date() });
+  const [success, setSuccess] = useState(false);
+  const [formError, setFormError] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
     fetchCar(id);
+    setFormError(false);
+    setSuccess(false);
   }, []);
 
   const handleChange = e => {
@@ -29,9 +33,13 @@ function CarPage({
       car_id: id,
     })
       .then(res => {
-        console.log(res);
+        if (res.status === 201) {
+          setSuccess(true);
+          setFormError(false);
+        }
       }, error => {
         console.log('error', error);
+        setFormError(true);
       });
   };
 
@@ -81,14 +89,20 @@ function CarPage({
             </li>
           </ul>
           <form>
-            <input type="date" onChange={handleChange} value={data.date} name="date" />
-            <select name="city" value={data.city} onChange={handleChange}>
-              <option value="New York">New York</option>
-              <option value="London">London</option>
-              <option value="Toronto">Toronto</option>
-              <option value="Berlin">Berlin</option>
-            </select>
-            <button type="button" onClick={handleSubmit}>Book</button>
+            {!success
+              ? (
+                <>
+                  <input type="date" onChange={handleChange} value={data.date} name="date" />
+                  <select name="city" value={data.city} onChange={handleChange}>
+                    <option value="New York">New York</option>
+                    <option value="London">London</option>
+                    <option value="Toronto">Toronto</option>
+                    <option value="Berlin">Berlin</option>
+                  </select>
+                  <button type="button" onClick={handleSubmit}>Book</button>
+                </>
+              ) : <SuccessText>Successfully created the booking!</SuccessText>}
+            {formError && <ErrorText>Found errors, could not create appointment!</ErrorText>}
           </form>
         </Table>
       </Content>
@@ -214,6 +228,17 @@ const Table = styled.div`
       cursor: pointer;
     }
   }
+`;
+
+const SuccessText = styled.p`
+  color: #97bf0e;
+  font-weight: 700;
+`;
+
+const ErrorText = styled.p`
+  margin-top: 10px;
+  color: red;
+  font-weight: 700;
 `;
 
 CarPage.propTypes = {

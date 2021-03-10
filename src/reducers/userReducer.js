@@ -1,35 +1,35 @@
 import Types from '../actions/actionTypes';
 
 const initialState = {
-  car: [],
-  loading: false,
+  user: {},
+  loading: true,
   error: null,
 };
 
-const carReducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case Types.FETCH_CAR_BEGIN:
+    case Types.LOGIN_BEGIN:
       return {
         ...state,
         loading: true,
+      };
+    case Types.LOGIN_SUCCESS:
+      return {
+        ...state,
+        user: action.payload.user,
+        loading: false,
         error: null,
       };
-    case Types.FETCH_CAR_SUCCESS:
+    case Types.LOGIN_ERROR:
       return {
         ...state,
+        user: {},
         loading: false,
-        car: action.payload.car,
-      };
-    case Types.FETCH_CAR_ERROR:
-      return {
-        ...state,
         error: action.payload.error,
-        loading: false,
-        car: [],
       };
     default:
       return state;
   }
 };
 
-export default carReducer;
+export default reducer;

@@ -17,11 +17,6 @@ function Navbar() {
           </Page>
         </Item>
         <Item>
-          <Page to="/lifestyle">
-            Lifestyle
-          </Page>
-        </Item>
-        <Item>
           <Page to="/">
             Shop
           </Page>

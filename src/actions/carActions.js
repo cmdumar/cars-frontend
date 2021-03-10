@@ -1,20 +1,17 @@
 import getCar from '../api/getCar';
-
-export const FETCH_CAR_BEGIN = 'FETCH_CAR_BEGIN';
-export const FETCH_CAR_SUCCESS = 'FETCH_CAR_SUCCESS';
-export const FETCH_CAR_ERROR = 'FETCH_CAR_ERROR';
+import Types from './actionTypes';
 
 const fetchCarBegin = () => ({
-  type: FETCH_CAR_BEGIN,
+  type: Types.FETCH_CAR_BEGIN,
 });
 
 const fetchCarSuccess = car => ({
-  type: FETCH_CAR_SUCCESS,
+  type: Types.FETCH_CAR_SUCCESS,
   payload: { car },
 });
 
 const fetchCarError = error => ({
-  type: FETCH_CAR_ERROR,
+  type: Types.FETCH_CAR_ERROR,
   payload: { error },
 });
 
