@@ -5,6 +5,7 @@ import { useParams } from 'react-router';
 import styled from 'styled-components';
 import Carousel from 'react-elastic-carousel';
 import fetchCar from '../actions/carActions';
+import API from '../api/api';
 
 function CarPage({
   car, loading, error, fetchCar,
@@ -19,6 +20,19 @@ function CarPage({
   const handleChange = e => {
     const { value } = e.target;
     setData({ ...data, [e.target.name]: value });
+  };
+
+  const handleSubmit = () => {
+    API.post('/appointments', {
+      city: data.city,
+      date: data.date,
+      car_id: id,
+    })
+      .then(res => {
+        console.log(res);
+      }, error => {
+        console.log('error', error);
+      });
   };
 
   let toRender;
@@ -74,7 +88,7 @@ function CarPage({
               <option value="Toronto">Toronto</option>
               <option value="Berlin">Berlin</option>
             </select>
-            <button type="submit">Book</button>
+            <button type="button" onClick={handleSubmit}>Book</button>
           </form>
         </Table>
       </Content>
