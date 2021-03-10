@@ -9,20 +9,16 @@ import fetchCar from '../actions/carActions';
 function CarPage({
   car, loading, error, fetchCar,
 }) {
-  const [city, setCity] = useState('');
-  const [date, setDate] = useState(new Date());
+  const [data, setData] = useState({ city: '', date: new Date() });
   const { id } = useParams();
 
   useEffect(() => {
     fetchCar(id);
   }, []);
 
-  const handleCity = e => {
-    setCity(e.target.value);
-  };
-
-  const handleDate = e => {
-    setDate(e.target.value);
+  const handleChange = e => {
+    const { value } = e.target;
+    setData({ ...data, [e.target.name]: value });
   };
 
   let toRender;
@@ -71,8 +67,8 @@ function CarPage({
             </li>
           </ul>
           <form>
-            <input type="date" onChange={handleDate} value={date} name="date" />
-            <select value={city} onChange={handleCity}>
+            <input type="date" onChange={handleChange} value={data.date} name="date" />
+            <select name="city" value={data.city} onChange={handleChange}>
               <option value="New York">New York</option>
               <option value="London">London</option>
               <option value="Toronto">Toronto</option>
