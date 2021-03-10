@@ -39,6 +39,7 @@ function Navbar() {
 const Nav = styled.nav`
   width: 15rem;
   height: 100%;
+  box-shadow: 1px 0 0 0 rgba(0, 0, 0, 0.1);
 `;
 
 const List = styled.ul`

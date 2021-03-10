@@ -8,9 +8,9 @@ const fetchCarBegin = () => ({
   type: FETCH_CAR_BEGIN,
 });
 
-const fetchCarSuccess = cars => ({
+const fetchCarSuccess = car => ({
   type: FETCH_CAR_SUCCESS,
-  payload: { cars },
+  payload: { car },
 });
 
 const fetchCarError = error => ({

@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { useEffect } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
-import PropTypes, { string } from 'prop-types';
-import Carousel from 'react-elastic-carousel';
+import PropTypes from 'prop-types';
 import fetchCars from '../actions/carsActions';
+import Car from '../components/Car';
 
 function Models({
   cars, loading, error, fetchCars,
@@ -12,6 +12,16 @@ function Models({
   useEffect(() => {
     fetchCars();
   }, []);
+
+  let dynamicComponent;
+
+  if (loading === true) {
+    dynamicComponent = <Loading>Loading</Loading>;
+  } else if (loading === false) {
+    dynamicComponent = (
+      <Car cars={cars} />
+    );
+  }
 
   return (
     <Container>
@@ -21,37 +31,11 @@ function Models({
           <p>Please select a Tesla Model</p>
           <DottedLine />
         </Header>
-        {loading ? <div>Loading</div>
-          : (
-            <StyledCarousel itemsToShow={3}>
-              {cars.map(i => (
-                <Car key={i.model}>
-                  <ImgContainer>
-                    <img src={i.picture[0].img} alt="Car" />
-                  </ImgContainer>
-                  <TextContainer>
-                    <h2>{i.model}</h2>
-                  </TextContainer>
-                </Car>
-              ))}
-            </StyledCarousel>
-          )}
+        {dynamicComponent}
       </Content>
     </Container>
   );
 }
-
-const Car = styled.div``;
-
-const ImgContainer = styled.div`
-  img {
-    width: 500px;
-  }
-`;
-
-const TextContainer = styled.div`
-  text-align: center;
-`;
 
 const Container = styled.section`
   display: grid;
@@ -73,21 +57,6 @@ const Header = styled.section`
   }
 `;
 
-const StyledCarousel = styled(Carousel)`
-  width: 100%;
-  padding: 10px;
-  .rec-arrow {
-    background-color: rgba(0,0,0,.5);
-    color: white;
-    &:hover {
-      background-color: rgba(0,0,0,.8);
-    }
-  }
-  .rec-pagination {
-    display: none;
-  }
-`;
-
 const Title = styled.h1`
   font-size: 40px;
   font-weight: bold;
@@ -100,6 +69,14 @@ const DottedLine = styled.div`
   margin: 0 auto;
   padding-top: 30px;
   border-bottom: 3px dotted #ccc;
+`;
+
+const Loading = styled.div`
+  text-align: center;
+  color: #444;
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 20px;
 `;
 
 Models.propTypes = {
