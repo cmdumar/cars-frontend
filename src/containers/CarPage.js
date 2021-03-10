@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
@@ -9,13 +9,21 @@ import fetchCar from '../actions/carActions';
 function CarPage({
   car, loading, error, fetchCar,
 }) {
+  const [city, setCity] = useState('');
+  const [date, setDate] = useState(new Date());
   const { id } = useParams();
-
-  console.log('car', car);
 
   useEffect(() => {
     fetchCar(id);
   }, []);
+
+  const handleCity = e => {
+    setCity(e.target.value);
+  };
+
+  const handleDate = e => {
+    setDate(e.target.value);
+  };
 
   let toRender;
 
@@ -63,12 +71,12 @@ function CarPage({
             </li>
           </ul>
           <form>
-            <input type="date" name="date" />
-            <select>
-              <option>New York</option>
-              <option>London</option>
-              <option>Toronto</option>
-              <option>Berlin</option>
+            <input type="date" onChange={handleDate} value={date} name="date" />
+            <select value={city} onChange={handleCity}>
+              <option value="New York">New York</option>
+              <option value="London">London</option>
+              <option value="Toronto">Toronto</option>
+              <option value="Berlin">Berlin</option>
             </select>
             <button type="submit">Book</button>
           </form>
@@ -167,6 +175,34 @@ const Table = styled.div`
 
   li:last-child {
     border-bottom: none;
+  }
+
+  form {
+    input {
+      width: 100%;
+      margin-bottom: 20px;
+      margin-top: 10px;
+      padding: 5px;
+    }
+
+    select {
+      width: 100%;
+      padding: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      background-color: #97bf0e;
+      color: #fefeff;
+      padding: 10px;
+      margin-top: 20px;
+      border: 1px solid #97bf0e;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
   }
 `;
 
