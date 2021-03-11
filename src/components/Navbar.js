@@ -88,7 +88,7 @@ const Page = styled(Link)`
 `;
 
 const Button = styled.button`
-  background: #2364d2;
+  background: #97bf0e;
   border: none;
   padding: 5px 10px;
   border-radius: 5px;
