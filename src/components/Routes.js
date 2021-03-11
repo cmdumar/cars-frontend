@@ -2,9 +2,9 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Home from './Home';
 import Models from '../containers/Models';
 import CarPage from '../containers/CarPage';
-import Login from './Login';
+import Login from '../containers/Login';
 import useToken from '../hooks/useToken';
-import Signup from './Signup';
+import Signup from '../containers/Signup';
 import Profile from '../containers/Profile';
 
 function Routes() {

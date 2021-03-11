@@ -30,9 +30,7 @@ function Profile({
         if (res.status === 200) {
           setToggle(toggle => !toggle);
         }
-      }, err => {
-        console.log('Error', err);
-      });
+      }, err => err);
   };
 
   let toRender;
@@ -67,12 +65,16 @@ function Profile({
       toRender = <h3>No appointments found.</h3>;
     }
   } if (loading) {
-    toRender = <div>Loading</div>;
+    toRender = <h3>Loading</h3>;
   }
 
   return (
     <Container>
       <Content>
+        <h2>
+          Your
+          Appointments
+        </h2>
         {toRender}
       </Content>
     </Container>
@@ -83,12 +85,14 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   display: grid;
-  place-items: center;
   background-color: #f2f2f2;
 `;
 
 const Content = styled.div`
-
+  padding: 30px;
+  h2 {
+    margin-bottom: 30px;
+  }
 `;
 
 const FlexBox = styled.div`

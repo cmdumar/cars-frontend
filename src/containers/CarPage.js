@@ -38,8 +38,8 @@ function CarPage({
           setFormError(false);
         }
       }, error => {
-        console.log('error', error);
         setFormError(true);
+        return error;
       });
   };
 

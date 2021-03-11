@@ -1,5 +1,6 @@
 import Types from './actionTypes';
 import userLogin from '../api/userLogin';
+import userSignup from '../api/userSignup';
 
 const loginBegin = () => ({
   type: Types.LOGIN_BEGIN,
@@ -25,4 +26,15 @@ const login = user => dispatch => {
     .catch(err => dispatch(loginError(err)));
 };
 
+const signup = data => dispatch => {
+  dispatch(loginBegin());
+  return userSignup(data)
+    .then(async res => {
+      await dispatch(loginSuccess(res.data));
+      return res.data;
+    })
+    .catch(err => dispatch(loginError(err)));
+};
+
 export default login;
+export { signup };

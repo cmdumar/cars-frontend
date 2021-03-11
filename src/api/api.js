@@ -1,6 +1,11 @@
 import axios from 'axios';
 
-const token = localStorage.getItem('token');
+const getToken = () => {
+  const tokenString = localStorage.getItem('token');
+  return tokenString;
+};
+
+const token = getToken();
 
 export default axios.create({
   baseURL: 'https://safe-retreat-53793.herokuapp.com',

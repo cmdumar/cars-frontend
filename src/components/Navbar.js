@@ -7,7 +7,7 @@ function Navbar() {
   const history = useHistory();
   const handleClick = () => {
     localStorage.removeItem('token');
-    history.push('/');
+    history.push('/login');
   };
 
   return (
@@ -33,9 +33,7 @@ function Navbar() {
             Profile
           </Page>
         </Item>
-        <Item>
-          <Button type="button" onClick={handleClick}>Sign out</Button>
-        </Item>
+        <Button type="button" onClick={handleClick}>Sign out</Button>
       </List>
     </Nav>
   );
@@ -90,10 +88,9 @@ const Page = styled(Link)`
 `;
 
 const Button = styled.button`
-  width: 100%;
   background: #2364d2;
   border: none;
-  padding: 10px 5px;
+  padding: 5px 10px;
   border-radius: 5px;
   font-size: 20px;
   font-weight: 500;

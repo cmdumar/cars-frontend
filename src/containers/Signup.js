@@ -1,24 +1,17 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { Link, useHistory } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import {
-  bool, func, instanceOf, string,
-} from 'prop-types';
 import { connect } from 'react-redux';
-import login from '../actions/userActions';
+import {
+  bool, func, string,
+} from 'prop-types';
+import { signup } from '../actions/userActions';
 
-function Login({
-  setToken, login, user, loading, error,
+function Signup({
+  setToken, signup, loading, error,
 }) {
   const [userInput, setUserInput] = useState({ email: '', password: '' });
   const history = useHistory();
-
-  useEffect(() => {
-    if (user.token) {
-      setToken(user.token);
-      history.push('/');
-    }
-  }, [user, loading, error]);
 
   const handleChange = e => {
     const { value } = e.target;
@@ -27,36 +20,46 @@ function Login({
   };
 
   const handleClick = () => {
-    if (userInput.email.length !== 0 && userInput.password.length !== 0) login(userInput);
+    if (userInput.name.length !== 0
+      && userInput.email.length !== 0
+      && userInput.password.length !== 0) {
+      signup(userInput).then(res => {
+        if (res.token) {
+          setToken(res.token);
+          history.push('/');
+        }
+      });
+    }
   };
 
   let toRender;
 
   if (loading) {
-    toRender = <div>Loading</div>;
+    toRender = <p>Loading</p>;
   }
 
   if (!loading && error !== null) {
     toRender = (
-      <div>
+      <p>
         Could not login because of Error:
         {error}
-      </div>
+      </p>
     );
   }
 
   return (
     <Container>
       <Content>
-        <h2>Login to Tesla</h2>
+        <h2>Signup to Tesla</h2>
         <Form>
-          <input onChange={handleChange} name="email" type="email" placeholder="Email" required />
-          <input onChange={handleChange} name="password" type="password" placeholder="Password" required />
-          <Button type="button" onClick={handleClick}>Login</Button>
+          <input name="name" type="text" onChange={handleChange} placeholder="Your Name" />
+          <input name="email" type="email" onChange={handleChange} placeholder="Your Email" />
+          <input name="password" type="password" onChange={handleChange} placeholder="Password" />
+          <button type="button" onClick={handleClick}>Sign up</button>
         </Form>
         {toRender}
-        <p>{'Don\'t have an account?'}</p>
-        <StyledLink to="/signup">Sign up</StyledLink>
+        <p>Already have an account?</p>
+        <StyledLink to="/login">Login</StyledLink>
       </Content>
     </Container>
   );
@@ -101,37 +104,35 @@ const Form = styled.form`
     padding: 10px;
     font-size: 18px;
   }
-`;
 
-const Button = styled.button`
-  width: 100%;
-  background: #2364d2;
-  border: none;
-  padding: 10px 5px;
-  border-radius: 5px;
-  font-size: 20px;
-  font-weight: 500;
-  font-family: "Source Sans Pro", sans-serif;
-  box-shadow: 3px 10px 20px 0px rgba(35, 100, 210, 0.3);
-  color: #fff;
-  margin-top: 20px;
-  cursor: pointer;
+  button {
+    width: 100%;
+    background: #2364d2;
+    border: none;
+    padding: 10px 5px;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: 500;
+    font-family: "Source Sans Pro", sans-serif;
+    box-shadow: 3px 10px 20px 0px rgba(35, 100, 210, 0.3);
+    color: #fff;
+    margin-top: 20px;
+    cursor: pointer;
+  }
 `;
 
 const StyledLink = styled(Link)`
 
-
 `;
 
-Login.propTypes = {
+Signup.propTypes = {
   setToken: func.isRequired,
-  login: func.isRequired,
-  user: instanceOf(Object).isRequired,
+  signup: func.isRequired,
   loading: bool.isRequired,
   error: string,
 };
 
-Login.defaultProps = {
+Signup.defaultProps = {
   error: null,
 };
 
@@ -141,4 +142,4 @@ const mapStateToProps = ({ userData }) => ({
   error: userData.error,
 });
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { signup })(Signup);
