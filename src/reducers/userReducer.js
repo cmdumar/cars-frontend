@@ -2,11 +2,11 @@ import Types from '../actions/actionTypes';
 
 const initialState = {
   user: {},
-  loading: true,
+  loading: false,
   error: null,
 };
 
-const reducer = (state = initialState, action) => {
+const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case Types.LOGIN_BEGIN:
       return {
@@ -32,4 +32,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export default reducer;
+export default userReducer;

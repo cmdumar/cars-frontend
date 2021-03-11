@@ -20,7 +20,6 @@ const login = user => dispatch => {
   return userLogin(user)
     .then(async res => {
       await dispatch(loginSuccess(res.data));
-      console.log('Login', res);
       return res.data;
     })
     .catch(err => dispatch(loginError(err)));

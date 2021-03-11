@@ -1,13 +1,19 @@
 import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import Routes from './Routes';
 
 function App() {
+  const location = useLocation();
+
   return (
     <Container>
-      <header>
-        <Navbar />
-      </header>
+      {(location.pathname === '/login' || location.pathname === '/signup')
+        ? null : (
+          <header>
+            <Navbar />
+          </header>
+        )}
       <Main>
         <Routes />
       </Main>

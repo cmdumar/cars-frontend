@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 function Signup() {
   return (
@@ -11,6 +12,8 @@ function Signup() {
           <input name="password" type="password" placeholder="Password" />
           <button type="button">Sign up</button>
         </Form>
+        <p>Already have an account?</p>
+        <StyledLink to="/login">Login</StyledLink>
       </Content>
     </Container>
   );
@@ -37,6 +40,10 @@ const Content = styled.div`
     text-align: center;
     font-size: 30px;
     font-weight: 400;
+  }
+
+  p {
+    margin-top: 20px;
   }
 `;
 
@@ -66,6 +73,10 @@ const Form = styled.form`
     margin-top: 20px;
     cursor: pointer;
   }
+`;
+
+const StyledLink = styled(Link)`
+
 `;
 
 export default Signup;

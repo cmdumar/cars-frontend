@@ -1,8 +1,15 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import logo from '../assets/logo.svg';
 
 function Navbar() {
+  const history = useHistory();
+  const handleClick = () => {
+    localStorage.removeItem('token');
+    history.push('/');
+  };
+
   return (
     <Nav>
       <List>
@@ -25,6 +32,9 @@ function Navbar() {
           <Page to="/profile">
             Profile
           </Page>
+        </Item>
+        <Item>
+          <Button type="button" onClick={handleClick}>Sign out</Button>
         </Item>
       </List>
     </Nav>
@@ -77,6 +87,21 @@ const Page = styled(Link)`
     background-color: #97bf0e;
     color: white;
   }
+`;
+
+const Button = styled.button`
+  width: 100%;
+  background: #2364d2;
+  border: none;
+  padding: 10px 5px;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: 500;
+  font-family: "Source Sans Pro", sans-serif;
+  box-shadow: 3px 10px 20px 0px rgba(35, 100, 210, 0.3);
+  color: #fff;
+  margin-top: 20px;
+  cursor: pointer;
 `;
 
 export default Navbar;
