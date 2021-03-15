@@ -94,6 +94,7 @@ function CarPage({
                 <>
                   <input type="date" onChange={handleChange} value={data.date} name="date" />
                   <select name="city" value={data.city} onChange={handleChange}>
+                    <option value="">Choose a city</option>
                     <option value="New York">New York</option>
                     <option value="London">London</option>
                     <option value="Toronto">Toronto</option>
