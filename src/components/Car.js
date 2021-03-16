@@ -22,7 +22,7 @@ function Car({ cars }) {
           <CarItem>
             <ImgContainer>
               <Circle />
-              <img src={i.picture[0].img} alt="Car" />
+              <img src={i.logo} alt="Car" />
             </ImgContainer>
             <TextContainer>
               <h2>{i.model}</h2>

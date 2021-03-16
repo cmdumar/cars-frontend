@@ -20,8 +20,8 @@ const login = user => dispatch => {
   dispatch(loginBegin());
   return userLogin(user)
     .then(async res => {
-      await dispatch(loginSuccess(res.data));
-      return res.data;
+      await dispatch(loginSuccess(res));
+      return res;
     })
     .catch(err => dispatch(loginError(err)));
 };

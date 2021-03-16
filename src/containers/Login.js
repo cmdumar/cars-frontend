@@ -12,6 +12,7 @@ function Login({
 }) {
   const [userInput, setUserInput] = useState({ email: '', password: '' });
   const history = useHistory();
+  const [err, setErr] = useState(false);
 
   const handleChange = e => {
     const { value } = e.target;
@@ -22,11 +23,15 @@ function Login({
   const handleClick = () => {
     if (userInput.email.length !== 0 && userInput.password.length !== 0) {
       login(userInput).then(res => {
-        if (res.token) {
-          setToken(res.token);
+        if (res && res.data.token) {
+          setErr(false);
+          setToken(res.data.token);
           history.push('/');
         }
-      });
+      })
+        .catch(() => {
+          setErr(true);
+        });
     }
   };
 
@@ -36,12 +41,20 @@ function Login({
     toRender = <p>Loading</p>;
   }
 
+  if (err) {
+    toRender = (
+      <RedText>
+        Invalid username or password.
+      </RedText>
+    );
+  }
+
   if (!loading && error !== null) {
     toRender = (
-      <p>
+      <RedText>
         Could not login because of Error:
         {error}
-      </p>
+      </RedText>
     );
   }
 
@@ -121,6 +134,10 @@ const Button = styled.button`
 const StyledLink = styled(Link)`
 
 
+`;
+
+const RedText = styled.p`
+  color: red;
 `;
 
 Login.propTypes = {

@@ -52,7 +52,11 @@ function CarPage({
       <Content>
         <Pictures>
           <StyledCarousel>
-            {car.featuredImages && car.featuredImages.map(i => <Item key={i.img}><Image src={i.img} alt="Car images" /></Item>)}
+            {car.images && car.images.map(i => (
+              <Item key={i.url}>
+                <Image src={i.url} alt="Car images" />
+              </Item>
+            ))}
           </StyledCarousel>
         </Pictures>
         <Table>
