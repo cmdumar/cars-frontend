@@ -92,6 +92,7 @@ const Content = styled.div`
   padding: 30px;
   h2 {
     margin-bottom: 30px;
+    margin-top: 100px;
   }
 `;
 

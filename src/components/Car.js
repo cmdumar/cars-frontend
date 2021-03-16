@@ -65,7 +65,7 @@ const ImgContainer = styled.div`
   align-items: center;
   img {
     width: 500px;
-    z-index: 10000;
+    z-index: 5;
   }
 `;
 

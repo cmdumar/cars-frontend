@@ -175,6 +175,7 @@ const Item = styled.div`
 const Image = styled.img`
   width: 100%;
   object-fit: contain;
+  z-index: 1;
 `;
 
 const Table = styled.div`
