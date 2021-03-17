@@ -40,8 +40,11 @@ function Signup({
   if (!loading && error !== null) {
     toRender = (
       <p>
-        Could not login because of Error:
+        Could not signup:
+        {' '}
         {error}
+        {' '}
+        try again.
       </p>
     );
   }
@@ -135,10 +138,10 @@ Signup.defaultProps = {
   error: null,
 };
 
-const mapStateToProps = ({ userData }) => ({
-  user: userData.user,
-  loading: userData.loading,
-  error: userData.error,
+const mapStateToProps = state => ({
+  user: state.currentUser,
+  loading: state.loading,
+  error: state.error,
 });
 
 export default connect(mapStateToProps, { signup })(Signup);
