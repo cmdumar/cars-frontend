@@ -1,5 +1,5 @@
 import getCars from '../api/getCars';
-import Types from './actionTypes';
+import Types from './types';
 
 const fetchCarsBegin = () => ({
   type: Types.FETCH_CARS_BEGIN,

@@ -5,7 +5,7 @@ import { useParams } from 'react-router';
 import styled from 'styled-components';
 import Carousel from 'react-elastic-carousel';
 import fetchCar from '../actions/carActions';
-import API from '../api/api';
+import AuthAPI from '../api/api';
 
 function CarPage({
   car, loading, error, fetchCar,
@@ -27,7 +27,7 @@ function CarPage({
   };
 
   const handleSubmit = () => {
-    API.post('/appointments', {
+    AuthAPI.post('/appointments', {
       city: data.city,
       date: data.date,
       car_id: id,

@@ -5,7 +5,7 @@ import {
   bool, func, instanceOf, string,
 } from 'prop-types';
 import fetchAppointments from '../actions/appointmentsActions';
-import API from '../api/api';
+import AuthAPI from '../api/api';
 
 function getDate(date) {
   const d = new Date(date);
@@ -25,9 +25,9 @@ function Profile({
   }, [toggle]);
 
   const handleClick = e => {
-    API.delete(`/appointments/${e.target.value}`)
+    AuthAPI.delete(`/appointments/${e.target.value}`)
       .then(res => {
-        if (res.status === 200) {
+        if (res.status === 202) {
           setToggle(toggle => !toggle);
         }
       }, err => err);

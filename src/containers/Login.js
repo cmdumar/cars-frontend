@@ -5,7 +5,7 @@ import {
   bool, func, string,
 } from 'prop-types';
 import { connect } from 'react-redux';
-import login from '../actions/userActions';
+import { login } from '../actions/user';
 
 function Login({
   setToken, login, loading, error,
@@ -20,18 +20,15 @@ function Login({
     setUserInput({ ...userInput, [e.target.name]: value });
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (userInput.email.length !== 0 && userInput.password.length !== 0) {
-      login(userInput).then(res => {
-        if (res && res.data.token) {
-          setErr(false);
-          setToken(res.data.token);
-          history.push('/');
-        }
-      })
-        .catch(() => {
-          setErr(true);
-        });
+      const res = await login(userInput);
+      if (res && res.token) {
+        setToken(res.token);
+        history.push('/');
+      } else {
+        setErr(true);
+      }
     }
   };
 
@@ -151,10 +148,10 @@ Login.defaultProps = {
   error: null,
 };
 
-const mapStateToProps = ({ userData }) => ({
-  user: userData.user,
-  loading: userData.loading,
-  error: userData.error,
+const mapStateToProps = state => ({
+  user: state.currentUser,
+  loading: state.loading,
+  error: state.error,
 });
 
 export default connect(mapStateToProps, { login })(Login);

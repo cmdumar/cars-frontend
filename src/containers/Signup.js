@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import {
   bool, func, string,
 } from 'prop-types';
-import { signup } from '../actions/userActions';
+import { signup } from '../actions/user';
 
 function Signup({
   setToken, signup, loading, error,
@@ -19,16 +19,15 @@ function Signup({
     setUserInput({ ...userInput, [e.target.name]: value });
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (userInput.name.length !== 0
       && userInput.email.length !== 0
       && userInput.password.length !== 0) {
-      signup(userInput).then(res => {
-        if (res.token) {
-          setToken(res.token);
-          history.push('/');
-        }
-      });
+      const res = await signup(userInput);
+      if (res && res.token) {
+        setToken(res.token);
+        history.push('/');
+      }
     }
   };
 

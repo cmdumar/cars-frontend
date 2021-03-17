@@ -1,5 +1,5 @@
 import getAppointments from '../api/getAppointments';
-import Types from './actionTypes';
+import Types from './types';
 
 const fetchAppointmentsBegin = () => ({
   type: Types.FETCH_APPOINTMENTS_BEGIN,
