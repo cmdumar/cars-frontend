@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
 import Carousel from 'react-elastic-carousel';
-import fetchCar from '../actions/carActions';
+import fetchCar from '../actions/car';
 import AuthAPI from '../api/api';
 
 function CarPage({
@@ -258,10 +258,10 @@ CarPage.defaultProps = {
   error: null,
 };
 
-const mapStateToProps = ({ car: { car, loading, error } }) => ({
-  car,
-  loading,
-  error,
+const mapStateToProps = state => ({
+  car: state.car,
+  loading: state.loading,
+  error: state.error,
 });
 
 export default connect(mapStateToProps, { fetchCar })(CarPage);

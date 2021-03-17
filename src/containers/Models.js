@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import fetchCars from '../actions/carsActions';
+import fetchCars from '../actions/cars';
 import Car from '../components/Car';
 
 function Models({
@@ -86,10 +86,10 @@ Models.propTypes = {
   fetchCars: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ cars }) => ({
-  cars: cars.cars,
-  loading: cars.loading,
-  error: cars.error,
+const mapStateToProps = state => ({
+  cars: state.cars,
+  loading: state.loading,
+  error: state.error,
 });
 
 export default connect(mapStateToProps, { fetchCars })(Models);

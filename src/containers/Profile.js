@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {
   bool, func, instanceOf, string,
 } from 'prop-types';
-import fetchAppointments from '../actions/appointmentsActions';
+import fetchAppointments from '../actions/appointments';
 import AuthAPI from '../api/api';
 
 function getDate(date) {
