@@ -1,28 +1,26 @@
 import getAppointments from '../api/getAppointments';
 import Types from './types';
+import setFetching from './loading';
+import setError from './error';
 
-const fetchAppointmentsBegin = () => ({
-  type: Types.FETCH_APPOINTMENTS_BEGIN,
+const setAppointments = appointments => ({
+  type: Types.SET_APPOINTMENTS,
+  appointments,
 });
 
-const fetchAppointmentsSuccess = car => ({
-  type: Types.FETCH_APPOINTMENTS_SUCCESS,
-  payload: { car },
-});
-
-const fetchAppointmentsError = error => ({
-  type: Types.FETCH_APPOINTMENTS_ERROR,
-  payload: { error },
-});
-
-const fetchAppointments = () => dispatch => {
-  dispatch(fetchAppointmentsBegin());
-  return getAppointments()
-    .then(async res => {
-      await dispatch(fetchAppointmentsSuccess(res.data));
-      return res.data;
-    })
-    .catch(err => dispatch(fetchAppointmentsError(err)));
+const fetchAppointments = () => async dispatch => {
+  try {
+    dispatch(setFetching(true));
+    const res = await getAppointments();
+    dispatch(setFetching(false));
+    const { data } = res;
+    if (data) dispatch(setAppointments(data));
+    return data;
+  } catch (e) {
+    dispatch(setError(e));
+    dispatch(setFetching(false));
+    return e;
+  }
 };
 
 export default fetchAppointments;

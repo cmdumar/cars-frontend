@@ -148,10 +148,10 @@ Profile.defaultProps = {
   error: null,
 };
 
-const mapStateToProps = ({ appointments }) => ({
-  appointments: appointments.items,
-  loading: appointments.loading,
-  error: appointments.error,
+const mapStateToProps = ({ appointments, loading, error }) => ({
+  appointments,
+  loading,
+  error,
 });
 
 export default connect(mapStateToProps, { fetchAppointments })(Profile);
