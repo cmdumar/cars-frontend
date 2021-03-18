@@ -138,10 +138,18 @@ const Content = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
 `;
 
 const Pictures = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  @media screen and (min-width: 800px) {
+    flex: 1;
+  }
 `;
 
 const StyledCarousel = styled(Carousel)`
@@ -184,6 +192,9 @@ const Image = styled.img`
 const Table = styled.div`
   width: 30%;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
 
   h2 {
     font-size: 30px;
@@ -235,6 +246,16 @@ const Table = styled.div`
       font-size: 16px;
       font-weight: 700;
       cursor: pointer;
+    }
+  }
+
+  @media screen and (min-width: 800px) {
+    flex: 1;
+  }
+
+  @media screen and (max-width: 800px) {
+    h2 {
+      text-align: left;
     }
   }
 `;
