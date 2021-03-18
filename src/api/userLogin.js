@@ -1,4 +1,4 @@
-import { API } from './api';
+import API from './api';
 
 const userLogin = async user => {
   try {

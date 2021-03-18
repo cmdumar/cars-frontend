@@ -5,7 +5,8 @@ import { useParams } from 'react-router';
 import styled from 'styled-components';
 import Carousel from 'react-elastic-carousel';
 import fetchCar from '../actions/car';
-import AuthAPI from '../api/api';
+import API from '../api/api';
+import getToken from '../helpers/getToken';
 
 function CarPage({
   car, loading, error, fetchCar,
@@ -27,10 +28,12 @@ function CarPage({
   };
 
   const handleSubmit = () => {
-    AuthAPI.post('/appointments', {
+    API.post('/appointments', {
       city: data.city,
       date: data.date,
       car_id: id,
+    }, {
+      headers: { Authorization: `Bearer ${getToken()}` },
     })
       .then(res => {
         if (res.status === 201) {

@@ -5,7 +5,8 @@ import {
   bool, func, instanceOf, string,
 } from 'prop-types';
 import fetchAppointments from '../actions/appointments';
-import AuthAPI from '../api/api';
+import API from '../api/api';
+import getToken from '../helpers/getToken';
 
 function getDate(date) {
   const d = new Date(date);
@@ -25,7 +26,9 @@ function Profile({
   }, [toggle]);
 
   const handleClick = e => {
-    AuthAPI.delete(`/appointments/${e.target.value}`)
+    API.delete(`/appointments/${e.target.value}`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    })
       .then(res => {
         if (res.status === 202) {
           setToggle(toggle => !toggle);

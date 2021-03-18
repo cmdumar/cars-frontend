@@ -1,9 +1,5 @@
-import { API } from './api';
-
-const getToken = () => {
-  const tokenString = localStorage.getItem('token');
-  return tokenString;
-};
+import API from './api';
+import getToken from '../helpers/getToken';
 
 const getAppointments = async () => {
   try {
