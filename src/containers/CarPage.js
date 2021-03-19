@@ -55,7 +55,7 @@ function CarPage({
       <Content>
         <Pictures>
           <StyledCarousel>
-            {car.images && car.images.map(i => (
+            {car.images && car.images.filter(i => i.category === 'featured').map(i => (
               <Item key={i.url}>
                 <Image src={i.url} alt="Car images" />
               </Item>

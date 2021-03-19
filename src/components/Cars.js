@@ -14,7 +14,13 @@ function getRandomColor() {
 
 const color = getRandomColor();
 
-function Car({ cars }) {
+const getImages = (images, cat) => {
+  const imgs = images.filter(i => i.category === cat);
+
+  return imgs[0].url;
+};
+
+function Cars({ cars }) {
   return (
     <StyledCarousel itemsToShow={3}>
       {cars.map(i => (
@@ -22,7 +28,7 @@ function Car({ cars }) {
           <CarItem>
             <ImgContainer>
               <Circle />
-              <img src={i.logo} alt="Car" />
+              <img src={getImages(i.images, 'logo')} alt="Car" />
             </ImgContainer>
             <TextContainer>
               <h2>{i.model}</h2>
@@ -82,8 +88,8 @@ const TextContainer = styled.div`
   text-align: center;
 `;
 
-Car.propTypes = {
+Cars.propTypes = {
   cars: PropTypes.instanceOf(Array).isRequired,
 };
 
-export default Car;
+export default Cars;

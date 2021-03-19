@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import fetchCars from '../actions/cars';
-import Car from '../components/Car';
+import Cars from '../components/Cars';
 
 function Models({
   cars, loading, error, fetchCars,
@@ -19,7 +19,7 @@ function Models({
     dynamicComponent = <Loading>Loading</Loading>;
   } else if (loading === false) {
     dynamicComponent = (
-      <Car cars={cars} />
+      <Cars cars={cars} />
     );
   }
 
