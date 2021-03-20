@@ -14,7 +14,7 @@
 
 ## Live Demo
 
-[Live Demo Link](https://goofy-booth-85eea5.netlify.app/)
+[Live Demo Link](https://car-booking-app.netlify.app/)
 
 ## Getting Started
 
